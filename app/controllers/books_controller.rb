@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   def index #新規投稿createアクションもある
     @book = Book.new
+    @books = Book.all
 
   end
 
