@@ -1,17 +1,37 @@
 <h1>Editing Book</h1>
 
-<%= form_with model: @book, url: update_book_path(@book.id), method: :patch do |f| %>
 
-<h4>Title</h4>
+
+<% if @book.errors.any? %>
+  <h4>error</h4>
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<%= form_with model: @book, url: book_path(@book.id), method: :patch do |f| %>
+
+<div class="field">
+<label>Title</label>
 <%= f.text_field:title %>
+</div>
 
-<h4>Body</h4>
+<div class="field">
+<label>Body</label>
 <%= f.text_area:body %>
+</div>
 
-<%= f.submit 'Update　Book' %>
+<div class="actions">
+<%= f.submit 'Update Book' %>
+</div>
 
-<!--リンク先-->
+
+
 <%= link_to "Show", book_path(@book.id) %>
+|
 <%= link_to "Back", '/books' %>
 
 <% end %>

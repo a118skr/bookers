@@ -1,29 +1,66 @@
-<h1>Books</h1><br>
-<h4>Title</h4><h4>Body</h4>
+
+<p class="notice"><%= flash[:notice] %></p>
+
+<h1>Books</h1>
+
+<table>
+
+<thead>
+<tr>
+  <th><h4>Title</h4></th>
+  <th><h4>Body</h4></th>
+  <th colspan="3"></th>
+</tr>
+</thead>
 
 <% @books.each do |book| %>
 
-  <span><%= book.title %></span>
+<tbody>
+<tr>
+  <th><span><%= book.title %></span></th>
+  <th><span><%= book.body %></span></th>
 
-  <span><%= book.body %></span>
-
-  <%= link_to "Show", book_path(book.id) %>
-  <%= link_to "Edit", edit_book_path(book.id) %>
-  <%= link_to "Destroy", destroy_book_path(book.id), method: :delete, "data-confirm" => "Are you sure？" %>
+  <th><%= link_to "Show", book_path(book.id) %></th>
+  <th><%= link_to "Edit", edit_book_path(book.id) %></th>
+  <th><%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "Are you sure？" %></th>
+</tr>
+</tbody>
 
 <% end %>
 
+</table>
 
 
 
 <h2>New book</h2>
 
+<% if @book.errors.any? %>
+  <h4>error</h4>
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+
+
+
 <%= form_with model: @book, url:'/books', method: :post do |f| %>
-  <h4>Title</h4>
+
+  <div class="field">
+  <label>Title</label>
   <%= f.text_field :title %>
+  </div>
 
-  <h4>Body</h4>
+  <div class="field">
+  <label>Body</label>
   <%= f.text_area :body %>
+  </div>
 
-  <%= f.submit 'Create book' %>
+  <div class="actions">
+  <%= f.submit 'Create Book' %>
+  </div>
+
 <% end %>
